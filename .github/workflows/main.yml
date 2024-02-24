@@ -1,0 +1,17 @@
+# Directly upload to releases.
+    - name: Upload to repository's releases page
+      uses: iamrh1819/Releases@v1
+      with:
+        files: |
+          ${{ github.event.inputs.DEVICE_NAME }}/recovery.img
+          ${{ github.event.inputs.DEVICE_NAME }}/boot.img
+          ${{ github.event.inputs.DEVICE_NAME }}/vendor_boot.img
+          ${{ github.event.inputs.DEVICE_NAME }}/vendor.img
+          ${{ github.event.inputs.DEVICE_NAME }}/system.img
+          ${{ github.event.inputs.DEVICE_NAME }}/*.zip
+        name: ${{ github.event.inputs.PRODUCT_NAME }}-${{ github.run_id }}
+        tag_name: ${{ github.run_id }}
+        body: |
+          Target: ${{ github.event.inputs.PRODUCT_NAME }}-${{ github.event.inputs.BUILD_TYPE }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
